@@ -16,7 +16,7 @@ clean:
 	rmdir com 2>/dev/null || true
 
 protoc_middleman: addressbook.proto
-	protoc $$PROTO_PATH --java_out=. --python_out=. addressbook.proto
+	protoc $$PROTO_PATH --java_out=. addressbook.proto
 	@touch protoc_middleman
 
 javac_middleman: AddPerson.java ListPeople.java protoc_middleman
