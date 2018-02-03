@@ -1,14 +1,10 @@
 # See README.txt.
 
-.PHONY: all cpp java python clean
+.PHONY: all java clean
 
-all: cpp java python
+all: java
 
-cpp:    add_person_cpp    list_people_cpp
-go:     add_person_go     list_people_go
-gotest: add_person_gotest list_people_gotest
 java:   add_person_java   list_people_java
-python: add_person_python list_people_python
 
 clean:
 	rm -f add_person_cpp list_people_cpp add_person_java list_people_java add_person_python list_people_python
@@ -25,31 +21,6 @@ protoc_middleman: addressbook.proto
 	protoc $$PROTO_PATH --cpp_out=. --java_out=. --python_out=. addressbook.proto
 	@touch protoc_middleman
 
-protoc_middleman_go: addressbook.proto
-	mkdir -p tutorial # make directory for go package
-	protoc $$PROTO_PATH --go_out=tutorial addressbook.proto
-	@touch protoc_middleman_go
-
-add_person_cpp: add_person.cc protoc_middleman
-	pkg-config --cflags protobuf  # fails if protobuf is not installed
-	c++ add_person.cc addressbook.pb.cc -o add_person_cpp `pkg-config --cflags --libs protobuf`
-
-list_people_cpp: list_people.cc protoc_middleman
-	pkg-config --cflags protobuf  # fails if protobuf is not installed
-	c++ list_people.cc addressbook.pb.cc -o list_people_cpp `pkg-config --cflags --libs protobuf`
-
-add_person_go: add_person.go protoc_middleman_go
-	go build -o add_person_go add_person.go
-
-add_person_gotest: add_person_test.go add_person_go
-	go test add_person.go add_person_test.go
-
-list_people_go: list_people.go protoc_middleman_go
-	go build -o list_people_go list_people.go
-
-list_people_gotest: list_people.go list_people_go
-	go test list_people.go list_people_test.go
-
 javac_middleman: AddPerson.java ListPeople.java protoc_middleman
 	javac -cp $$CLASSPATH AddPerson.java ListPeople.java com/example/tutorial/AddressBookProtos.java
 	@touch javac_middleman
@@ -65,15 +36,3 @@ list_people_java: javac_middleman
 	@echo '#! /bin/sh' > list_people_java
 	@echo 'java -classpath .:$$CLASSPATH ListPeople "$$@"' >> list_people_java
 	@chmod +x list_people_java
-
-add_person_python: add_person.py protoc_middleman
-	@echo "Writing shortcut script add_person_python..."
-	@echo '#! /bin/sh' > add_person_python
-	@echo './add_person.py "$$@"' >> add_person_python
-	@chmod +x add_person_python
-
-list_people_python: list_people.py protoc_middleman
-	@echo "Writing shortcut script list_people_python..."
-	@echo '#! /bin/sh' > list_people_python
-	@echo './list_people.py "$$@"' >> list_people_python
-	@chmod +x list_people_python
