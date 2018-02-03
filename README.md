@@ -1,3 +1,6 @@
+# Video Instruction
+https://www.youtube.com/watch?v=EAFK-tN_yaw&list=PLYGtOWActsGV4hKQyywCCLwrTsSbo26Wm&index=1
+
 # Protocol Buffers - Code Example
 
 This directory contains example code that uses Protocol Buffers to manage an
