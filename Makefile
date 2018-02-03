@@ -20,7 +20,7 @@ protoc_middleman: addressbook.proto
 	@touch protoc_middleman
 
 javac_middleman: AddPerson.java ListPeople.java protoc_middleman
-	javac -cp $$CLASSPATH AddPerson.java ListPeople.java com/example/tutorial/AddressBookProtos.java
+	javac -cp protobuf-java-3.5.1.jar AddPerson.java ListPeople.java com/example/tutorial/AddressBookProtos.java
 	@touch javac_middleman
 
 add_person_java: javac_middleman
