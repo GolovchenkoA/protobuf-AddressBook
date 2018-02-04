@@ -1,6 +1,12 @@
 # Video Instruction
 https://www.youtube.com/watch?v=EAFK-tN_yaw&list=PLYGtOWActsGV4hKQyywCCLwrTsSbo26Wm&index=1
 
+#How to run program 
+Execute from program root folder
+
+java -classpath protobuf-java-3.5.1.jar:./ AddPerson protoc_middleman 
+java -classpath protobuf-java-3.5.1.jar:./ ListPeople protoc_middleman 
+
 # Protocol Buffers - Code Example
 
 This directory contains example code that uses Protocol Buffers to manage an
